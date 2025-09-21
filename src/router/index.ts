@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
+    path: "/",
+    redirect: "404",
+  },
+  {
     path: "/guest-book",
     name: "GuestBook",
     component: () => import("@/views/GuestBook.vue"),
