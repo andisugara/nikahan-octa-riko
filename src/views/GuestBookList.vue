@@ -3,17 +3,28 @@
     <div class="max-w-6xl mx-auto px-4 md:px-8">
       <!-- Back Button -->
       <div class="mb-8 flex justify-between items-center">
-        <router-link 
-          to="/guest-book" 
+        <router-link
+          to="/guest-book"
           class="inline-flex items-center text-white hover:text-red-500 transition-colors"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
           </svg>
           Kembali ke Buku Tamu
         </router-link>
       </div>
-      
+
       <!-- Header -->
       <header class="text-center mb-8">
         <h1 class="text-3xl md:text-4xl font-bold mb-2">Daftar Tamu</h1>
@@ -26,9 +37,22 @@
           <div class="flex-1">
             <label for="search" class="sr-only">Cari Tamu</label>
             <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <svg
+                  class="h-5 w-5 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
               </div>
               <input
@@ -57,129 +81,194 @@
             </select>
           </div>
         </div>
+
+        <!-- Data Summary -->
+        <div class="mt-4 flex flex-col md:flex-row justify-between text-sm">
+          <div class="flex gap-4">
+            <div class="bg-gray-800 px-3 py-2 rounded-md">
+              <span class="text-gray-400">Total Data:</span>
+              <span class="text-white font-medium ml-2">{{
+                totalEntries
+              }}</span>
+            </div>
+            <div class="bg-gray-800 px-3 py-2 rounded-md">
+              <span class="text-gray-400">Data Terfilter:</span>
+              <span
+                :class="[
+                  'font-medium ml-2',
+                  filteredEntries.length === totalEntries
+                    ? 'text-white'
+                    : 'text-red-400',
+                ]"
+              >
+                {{ filteredEntries.length }}
+              </span>
+            </div>
+          </div>
+          <div
+            v-if="searchTerm && filteredEntries.length !== totalEntries"
+            class="mt-2 md:mt-0"
+          >
+            <button
+              @click="clearSearch"
+              class="text-red-500 hover:text-red-400 underline"
+            >
+              Reset Filter
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Loading -->
       <div v-if="loading" class="text-center py-20">
-        <div class="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <div
+          class="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"
+        ></div>
         <p class="text-gray-400 text-lg">Memuat data tamu...</p>
       </div>
 
       <!-- Empty State -->
-      <div v-else-if="filteredEntries.length === 0" class="text-center py-20 bg-gray-900 rounded-lg border border-gray-800">
-        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16 text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      <div
+        v-else-if="filteredEntries.length === 0"
+        class="text-center py-20 bg-gray-900 rounded-lg border border-gray-800"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="mx-auto h-16 w-16 text-gray-600 mb-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          />
         </svg>
         <p class="text-gray-400 text-lg font-medium">
-          {{ searchTerm ? 'Tidak ada tamu yang cocok dengan pencarian Anda.' : 'Belum ada tamu yang mengisi buku tamu.' }}
+          {{
+            searchTerm
+              ? "Tidak ada tamu yang cocok dengan pencarian Anda."
+              : "Belum ada tamu yang mengisi buku tamu."
+          }}
         </p>
         <div v-if="searchTerm" class="mt-4">
-          <button @click="clearSearch" class="text-red-500 hover:text-red-400 font-medium">
+          <button
+            @click="clearSearch"
+            class="text-red-500 hover:text-red-400 font-medium"
+          >
             Reset Pencarian
           </button>
         </div>
       </div>
 
       <!-- Table -->
-      <div v-else class="overflow-hidden bg-gray-900 rounded-lg border border-gray-800">
+      <div
+        v-else
+        class="overflow-hidden bg-gray-900 rounded-lg border border-gray-800"
+      >
         <table class="min-w-full divide-y divide-gray-800">
           <thead class="bg-gray-800">
             <tr>
-              <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th
+                scope="col"
+                class="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+              >
                 No
               </th>
-              <th 
-                scope="col" 
+              <th
+                scope="col"
                 class="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer"
                 @click="sortBy('name')"
               >
                 <div class="flex items-center">
                   Nama
-                  <svg 
-                    v-if="sortColumn === 'name'" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    class="ml-1 h-4 w-4" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
+                  <svg
+                    v-if="sortColumn === 'name'"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="ml-1 h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path 
-                      v-if="sortDirection === 'asc'" 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
-                      d="M5 15l7-7 7 7" 
+                    <path
+                      v-if="sortDirection === 'asc'"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 15l7-7 7 7"
                     />
-                    <path 
-                      v-else 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
-                      d="M19 9l-7 7-7-7" 
+                    <path
+                      v-else
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </div>
               </th>
-              <th 
-                scope="col" 
+              <th
+                scope="col"
                 class="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer"
                 @click="sortBy('address')"
               >
                 <div class="flex items-center">
                   Alamat
-                  <svg 
-                    v-if="sortColumn === 'address'" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    class="ml-1 h-4 w-4" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
+                  <svg
+                    v-if="sortColumn === 'address'"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="ml-1 h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path 
-                      v-if="sortDirection === 'asc'" 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
-                      d="M5 15l7-7 7 7" 
+                    <path
+                      v-if="sortDirection === 'asc'"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 15l7-7 7 7"
                     />
-                    <path 
-                      v-else 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
-                      d="M19 9l-7 7-7-7" 
+                    <path
+                      v-else
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </div>
               </th>
-              <th 
-                scope="col" 
+              <th
+                scope="col"
                 class="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer"
                 @click="sortBy('created_at')"
               >
                 <div class="flex items-center">
                   Tanggal
-                  <svg 
-                    v-if="sortColumn === 'created_at'" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    class="ml-1 h-4 w-4" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
+                  <svg
+                    v-if="sortColumn === 'created_at'"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="ml-1 h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path 
-                      v-if="sortDirection === 'asc'" 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
-                      d="M5 15l7-7 7 7" 
+                    <path
+                      v-if="sortDirection === 'asc'"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 15l7-7 7 7"
                     />
-                    <path 
-                      v-else 
-                      stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
-                      d="M19 9l-7 7-7-7" 
+                    <path
+                      v-else
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
                     />
                   </svg>
                 </div>
@@ -187,16 +276,24 @@
             </tr>
           </thead>
           <tbody class="bg-gray-900 divide-y divide-gray-800">
-            <tr v-for="(entry, index) in paginatedEntries" :key="entry.id" class="hover:bg-gray-800">
+            <tr
+              v-for="(entry, index) in paginatedEntries"
+              :key="entry.id"
+              class="hover:bg-gray-800"
+            >
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                 {{ (currentPage - 1) * entriesPerPage + index + 1 }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
-                  <div class="h-8 w-8 rounded-full bg-red-600 flex items-center justify-center text-white font-medium mr-3">
+                  <div
+                    class="h-8 w-8 rounded-full bg-red-600 flex items-center justify-center text-white font-medium mr-3"
+                  >
                     {{ entry.name.charAt(0).toUpperCase() }}
                   </div>
-                  <div class="text-sm font-medium text-white">{{ entry.name }}</div>
+                  <div class="text-sm font-medium text-white">
+                    {{ entry.name }}
+                  </div>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
@@ -211,50 +308,83 @@
       </div>
 
       <!-- Pagination -->
-      <div v-if="!loading && totalPages > 1" class="mt-6 flex justify-between items-center bg-gray-900 rounded-lg border border-gray-800 p-4">
+      <div
+        v-if="!loading && totalPages > 1"
+        class="mt-6 flex justify-between items-center bg-gray-900 rounded-lg border border-gray-800 p-4"
+      >
         <div class="text-sm text-gray-400">
-          Menampilkan {{ paginationInfo.from }} - {{ paginationInfo.to }} dari {{ filteredEntries.length }} entri
+          Menampilkan {{ paginationInfo.from }} - {{ paginationInfo.to }} dari
+          {{ filteredEntries.length }} entri
+          {{
+            searchTerm && filteredEntries.length !== totalEntries
+              ? `(dari total ${totalEntries})`
+              : ""
+          }}
         </div>
         <div class="flex space-x-2">
-          <button 
-            @click="prevPage" 
-            :disabled="currentPage === 1" 
+          <button
+            @click="prevPage"
+            :disabled="currentPage === 1"
             class="inline-flex items-center px-4 py-2 border border-gray-700 rounded-md text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            <svg
+              class="h-4 w-4 mr-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
             Sebelumnya
           </button>
-          
+
           <div class="hidden md:flex space-x-2">
-            <button 
-              v-for="page in paginationRange" 
-              :key="page" 
-              @click="goToPage(page)" 
+            <button
+              v-for="page in paginationRange"
+              :key="page"
+              @click="goToPage(page)"
               :class="[
                 'px-4 py-2 border text-sm font-medium rounded-md',
-                currentPage === page 
+                currentPage === page
                   ? 'bg-red-600 text-white border-red-600'
-                  : 'border-gray-700 text-white hover:bg-gray-800'
+                  : 'border-gray-700 text-white hover:bg-gray-800',
               ]"
             >
               {{ page }}
             </button>
           </div>
-          
+
           <div class="md:hidden flex items-center space-x-1">
-            <span class="text-gray-400">{{ currentPage }} / {{ totalPages }}</span>
+            <span class="text-gray-400"
+              >{{ currentPage }} / {{ totalPages }}</span
+            >
           </div>
-          
-          <button 
-            @click="nextPage" 
-            :disabled="currentPage >= totalPages" 
+
+          <button
+            @click="nextPage"
+            :disabled="currentPage >= totalPages"
             class="inline-flex items-center px-4 py-2 border border-gray-700 rounded-md text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Berikutnya
-            <svg class="h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            <svg
+              class="h-4 w-4 ml-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
@@ -264,32 +394,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
-import { useWeddingStore } from '@/store/wedding';
-import type { GuestBook } from '@/store/wedding';
+import { ref, computed, onMounted, watch } from "vue";
+import { useWeddingStore } from "@/store/wedding";
+import type { GuestBook } from "@/store/wedding";
 
 const store = useWeddingStore();
 
 // State
 const loading = ref(true);
-const searchTerm = ref('');
+const searchTerm = ref("");
 const entriesPerPage = ref(10);
 const currentPage = ref(1);
-const sortColumn = ref('created_at');
-const sortDirection = ref<'asc' | 'desc'>('desc');
+const sortColumn = ref("created_at");
+const sortDirection = ref<"asc" | "desc">("desc");
 const searchTimeout = ref<number | null>(null);
 
 // Computed
 const guestBookEntries = computed(() => store.guestBookEntries);
 
+// Total entries (keseluruhan data)
+const totalEntries = computed(() => guestBookEntries.value.length);
+
 // Filtered entries based on search
 const filteredEntries = computed(() => {
   if (!searchTerm.value) return [...guestBookEntries.value];
-  
+
   const term = searchTerm.value.toLowerCase();
-  return guestBookEntries.value.filter(entry => 
-    entry.name.toLowerCase().includes(term) || 
-    entry.address.toLowerCase().includes(term)
+  return guestBookEntries.value.filter(
+    (entry) =>
+      entry.name.toLowerCase().includes(term) ||
+      entry.address.toLowerCase().includes(term)
   );
 });
 
@@ -297,16 +431,20 @@ const filteredEntries = computed(() => {
 const sortedEntries = computed(() => {
   return [...filteredEntries.value].sort((a, b) => {
     let valA, valB;
-    
-    if (sortColumn.value === 'created_at') {
-      valA = new Date(a.created_at || '').getTime();
-      valB = new Date(b.created_at || '').getTime();
+
+    if (sortColumn.value === "created_at") {
+      valA = new Date(a.created_at || "").getTime();
+      valB = new Date(b.created_at || "").getTime();
     } else {
-      valA = (a[sortColumn.value as keyof GuestBook] as string || '').toLowerCase();
-      valB = (b[sortColumn.value as keyof GuestBook] as string || '').toLowerCase();
+      valA = (
+        (a[sortColumn.value as keyof GuestBook] as string) || ""
+      ).toLowerCase();
+      valB = (
+        (b[sortColumn.value as keyof GuestBook] as string) || ""
+      ).toLowerCase();
     }
-    
-    if (sortDirection.value === 'asc') {
+
+    if (sortDirection.value === "asc") {
       return valA > valB ? 1 : -1;
     } else {
       return valA < valB ? 1 : -1;
@@ -315,7 +453,7 @@ const sortedEntries = computed(() => {
 });
 
 // Pagination
-const totalPages = computed(() => 
+const totalPages = computed(() =>
   Math.max(1, Math.ceil(filteredEntries.value.length / entriesPerPage.value))
 );
 
@@ -326,52 +464,55 @@ const paginatedEntries = computed(() => {
 });
 
 const paginationInfo = computed(() => {
-  const from = filteredEntries.value.length === 0 
-    ? 0 
-    : (currentPage.value - 1) * entriesPerPage.value + 1;
-    
+  const from =
+    filteredEntries.value.length === 0
+      ? 0
+      : (currentPage.value - 1) * entriesPerPage.value + 1;
+
   const to = Math.min(
     currentPage.value * entriesPerPage.value,
     filteredEntries.value.length
   );
-  
+
   return { from, to };
 });
 
 const paginationRange = computed(() => {
   const totalVisible = 5;
-  const totalPages = Math.ceil(filteredEntries.value.length / entriesPerPage.value);
-  
+  const totalPages = Math.ceil(
+    filteredEntries.value.length / entriesPerPage.value
+  );
+
   if (totalPages <= totalVisible) {
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
-  
+
   // Always show first page, last page, and current page
   // Along with one page before and after current page
   let startPage = Math.max(1, currentPage.value - 1);
   let endPage = Math.min(totalPages, currentPage.value + 1);
-  
+
   // Adjust if we're at the start
   if (startPage <= 2) {
     startPage = 1;
     endPage = Math.min(totalVisible, totalPages);
-  } 
+  }
   // Adjust if we're at the end
   else if (endPage >= totalPages - 1) {
     startPage = Math.max(1, totalPages - totalVisible + 1);
     endPage = totalPages;
-  } 
+  }
   // In the middle with enough pages on each side
   else {
     startPage = Math.max(1, currentPage.value - Math.floor(totalVisible / 2));
     endPage = Math.min(totalPages, startPage + totalVisible - 1);
-    
+
     // Adjust again if we don't have enough pages at the end
     if (endPage - startPage + 1 < totalVisible) {
       startPage = Math.max(1, endPage - totalVisible + 1);
     }
   }
-  
+
   return Array.from(
     { length: endPage - startPage + 1 },
     (_, i) => startPage + i
@@ -384,14 +525,14 @@ const handleSearch = () => {
   if (searchTimeout.value) {
     clearTimeout(searchTimeout.value);
   }
-  
+
   searchTimeout.value = setTimeout(() => {
     currentPage.value = 1;
   }, 300) as unknown as number;
 };
 
 const clearSearch = () => {
-  searchTerm.value = '';
+  searchTerm.value = "";
   currentPage.value = 1;
 };
 
@@ -417,24 +558,24 @@ const goToPage = (page: number) => {
 
 const sortBy = (column: string) => {
   if (sortColumn.value === column) {
-    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+    sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
   } else {
     sortColumn.value = column;
-    sortDirection.value = 'asc';
+    sortDirection.value = "asc";
   }
 };
 
 const formatDate = (dateString?: string) => {
-  if (!dateString) return '';
-  
+  if (!dateString) return "";
+
   const date = new Date(dateString);
-  
-  return new Intl.DateTimeFormat('id-ID', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
+
+  return new Intl.DateTimeFormat("id-ID", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   }).format(date);
 };
 
@@ -449,12 +590,12 @@ watch(filteredEntries, () => {
 onMounted(async () => {
   try {
     loading.value = true;
-    
+
     if (guestBookEntries.value.length === 0) {
       await store.fetchGuestBookEntries();
     }
   } catch (error) {
-    console.error('Error fetching guest book entries:', error);
+    console.error("Error fetching guest book entries:", error);
   } finally {
     loading.value = false;
   }
