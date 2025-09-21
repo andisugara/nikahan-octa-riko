@@ -7,6 +7,11 @@ const routes = [
     component: () => import("@/views/GuestBook.vue"),
   },
   {
+    path: "/guest-book/list",
+    name: "GuestBookList",
+    component: () => import("@/views/GuestBookList.vue"),
+  },
+  {
     path: "/:guestCode",
     name: "Home",
     component: () => import("@/views/Home.vue"),
