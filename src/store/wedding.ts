@@ -89,6 +89,7 @@ export interface GuestBook {
   id?: number;
   name: string;
   address: string;
+  created_at?: string;
 }
 
 export const useWeddingStore = defineStore("wedding", () => {

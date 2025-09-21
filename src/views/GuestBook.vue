@@ -1,6 +1,30 @@
 <template>
   <div class="min-h-screen bg-black text-white pt-20 pb-16">
     <div class="max-w-4xl mx-auto px-4 md:px-8">
+      <!-- Navigation -->
+      <div class="mb-8 flex justify-between items-center">
+        <router-link
+          to="/guest-book/list"
+          class="inline-flex items-center bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 10h16M4 14h16M4 18h16"
+            />
+          </svg>
+          Lihat Daftar Tamu
+        </router-link>
+      </div>
+
       <!-- Header -->
       <header class="text-center mb-12">
         <h1 class="text-3xl md:text-4xl font-bold mb-4">Buku Tamu</h1>
