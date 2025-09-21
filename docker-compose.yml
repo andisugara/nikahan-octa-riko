@@ -1,0 +1,17 @@
+services:
+  nikahan-octa-riko:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nikahan-octa-riko:latest
+    container_name: nikahan-octa-riko
+    networks:
+      - msa-networks
+    ports:
+      - "8095:80"
+
+networks:
+  msa-networks:
+    driver: bridge
+    name: msa-networks
+    external: true
