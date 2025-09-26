@@ -30,7 +30,7 @@
             {{ weddingInfo?.bride }}
           </h3>
           <p class="text-white/80 text-lg mb-4">
-            Putri dari {{ weddingInfo?.brideParents }}
+            {{ weddingInfo?.brideParents }}
           </p>
           <div class="text-white/60 text-sm">
             {{ weddingInfo?.descriptionBride }}
@@ -51,7 +51,7 @@
             {{ weddingInfo?.groom }}
           </h3>
           <p class="text-white/80 text-lg mb-4">
-            Putra dari {{ weddingInfo?.groomParents }}
+            {{ weddingInfo?.groomParents }}
           </p>
           <div class="text-white/60 text-sm">
             {{ weddingInfo?.descriptionGroom }}
