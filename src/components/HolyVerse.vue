@@ -11,6 +11,11 @@
         <p class="text-red-600 font-bold text-lg">
           {{ weddingInfo?.holyVerseRef }}
         </p>
+        <p
+          class="text-white/90 text-lg md:text-xl leading-relaxed mb-6 font-light italic"
+        >
+          QS. Ar-Rum: 21
+        </p>
       </div>
     </div>
   </div>

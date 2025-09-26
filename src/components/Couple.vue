@@ -15,26 +15,6 @@
         Profil Calon Pengantin
       </h2>
       <div class="grid md:grid-cols-2 gap-8 md:gap-12">
-        <div class="text-center">
-          <div
-            class="w-48 h-48 md:w-64 md:h-64 mx-auto mb-6 rounded-full overflow-hidden border-4 border-red-600"
-          >
-            <img
-              v-lazy="weddingInfo?.photoGroom"
-              alt="Groom"
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <h3 class="text-white text-2xl md:text-3xl font-bold">
-            {{ weddingInfo?.groomFull }}
-          </h3>
-          <p class="text-white/80 text-lg mb-4">
-            Putra dari {{ weddingInfo?.groomParents }}
-          </p>
-          <div class="text-white/60 text-sm">
-            {{ weddingInfo?.descriptionGroom }}
-          </div>
-        </div>
 
         <div class="text-center">
           <div
@@ -47,7 +27,7 @@
             />
           </div>
           <h3 class="text-white text-2xl md:text-3xl font-bold">
-            {{ weddingInfo?.brideFull }}
+            {{ weddingInfo?.bride }}
           </h3>
           <p class="text-white/80 text-lg mb-4">
             Putri dari {{ weddingInfo?.brideParents }}
@@ -56,6 +36,28 @@
             {{ weddingInfo?.descriptionBride }}
           </div>
         </div>
+
+         <div class="text-center">
+          <div
+            class="w-48 h-48 md:w-64 md:h-64 mx-auto mb-6 rounded-full overflow-hidden border-4 border-red-600"
+          >
+            <img
+              v-lazy="weddingInfo?.photoGroom"
+              alt="Groom"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <h3 class="text-white text-2xl md:text-3xl font-bold">
+            {{ weddingInfo?.groom }}
+          </h3>
+          <p class="text-white/80 text-lg mb-4">
+            Putra dari {{ weddingInfo?.groomParents }}
+          </p>
+          <div class="text-white/60 text-sm">
+            {{ weddingInfo?.descriptionGroom }}
+          </div>
+        </div>
+        
       </div>
     </div>
   </div>

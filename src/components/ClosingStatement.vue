@@ -24,13 +24,6 @@
         <p className="text-xl font-bold mb-4">
           {{ weddingInfo?.groom }} &amp; {{ weddingInfo?.bride }}
         </p>
-        <p className="text-white/80">
-          "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
-          pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
-          dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa
-          kasih dan sayang."
-        </p>
-        <p className="text-red-600 font-semibold mt-4">QS. Ar-Rum: 21</p>
       </div>
     </div>
   </div>

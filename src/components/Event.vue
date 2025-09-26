@@ -28,8 +28,17 @@
             <div class="flex items-start">
               <MapPin class="text-red-600 mr-3 mt-1 flex-shrink-0" :size="20" />
               <div>
-                <p class="font-bold">{{ weddingInfo?.venue }}</p>
+                <a class="font-bold">{{ weddingInfo?.venue }}</a>
                 <p class="text-white/70">{{ weddingInfo?.address }}</p>
+                <a
+                  v-if="weddingInfo?.gmapsUrl"
+                  :href="weddingInfo.gmapsUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-white-400 hover:underline"
+                >
+                  Lihat di Google Maps
+                </a>
               </div>
             </div>
           </div>
@@ -52,6 +61,15 @@
               <div>
                 <p class="font-bold">{{ weddingInfo?.venue }}</p>
                 <p class="text-white/70">{{ weddingInfo?.address }}</p>
+                <a
+                  v-if="weddingInfo?.gmapsUrl"
+                  :href="weddingInfo.gmapsUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-white-400 hover:underline"
+                >
+                  Lihat di Google Maps
+                </a>
               </div>
             </div>
           </div>
