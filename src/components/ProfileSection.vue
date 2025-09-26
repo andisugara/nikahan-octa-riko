@@ -28,13 +28,13 @@
           </small>
         </div>
       </div>
-      <div class="flex flex-col md:flex-row justify-center gap-4">
+      <!-- <div class="flex flex-col md:flex-row justify-center gap-4">
         <button
           class="mt-16 text-gray-400 hover:text-white border border-gray-400 hover:border-white px-6 py-3 text-sm md:text-lg"
         >
           Undangan dari {{ guest?.from || "Riko Nusa" }}
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

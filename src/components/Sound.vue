@@ -13,27 +13,6 @@
         <div
           key="xxx"
           class="text-center group cursor-pointer flex flex-col items-center"
-          @click="() => setSoundActive('groom')"
-        >
-          <div
-            class="w-32 h-32 mb-4 rounded-lg bg-gray-800 flex items-center justify-center text-6xl group-hover:ring-4 group-hover:ring-white"
-          >
-            <img
-              :src="SoundGroom"
-              alt="Sound Groom"
-              class="w-full h-full object-cover rounded-lg"
-            />
-          </div>
-          <p class="text-gray-400 text-lg group-hover:text-white">
-            {{ weddingInfo?.groom }}
-          </p>
-          <small class="text-gray-500">
-            {{ weddingInfo?.audioTitleGroom }}
-          </small>
-        </div>
-        <div
-          key="xxx"
-          class="text-center group cursor-pointer flex flex-col items-center"
           @click="() => setSoundActive('bride')"
         >
           <div
@@ -50,6 +29,27 @@
           </p>
           <small class="text-gray-500">
             {{ weddingInfo?.audioTitleBride }}
+          </small>
+        </div>
+         <div
+          key="xxx"
+          class="text-center group cursor-pointer flex flex-col items-center"
+          @click="() => setSoundActive('groom')"
+        >
+          <div
+            class="w-32 h-32 mb-4 rounded-lg bg-gray-800 flex items-center justify-center text-6xl group-hover:ring-4 group-hover:ring-white"
+          >
+            <img
+              :src="SoundGroom"
+              alt="Sound Groom"
+              class="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <p class="text-gray-400 text-lg group-hover:text-white">
+            {{ weddingInfo?.groom }}
+          </p>
+          <small class="text-gray-500">
+            {{ weddingInfo?.audioTitleGroom }}
           </small>
         </div>
       </div>

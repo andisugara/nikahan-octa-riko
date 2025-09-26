@@ -4,7 +4,7 @@ import "./style.css";
 import App from "./App.vue";
 import router from "./router";
 import lazyPlugin from "vue3-lazy";
-import NikahFix from "@images/nikahfix.png";
+import NikahFix from "@images/loading.gif";
 
 // Create pinia (store)
 const pinia = createPinia();

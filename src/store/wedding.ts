@@ -236,7 +236,7 @@ export const useWeddingStore = defineStore("wedding", () => {
       const { data, error: supabaseError } = await supabase
         .from("gallery")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("id", { ascending: true });
 
       if (supabaseError) throw supabaseError;
 

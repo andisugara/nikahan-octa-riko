@@ -63,13 +63,6 @@
               <Play :size="20" />
               <span>Play</span>
             </button>
-
-            <button
-              class="bg-gray-600/70 hover:bg-gray-500/70 text-white px-8 py-3 rounded flex items-center space-x-2 transition-all duration-300 font-bold text-lg"
-            >
-              <Info :size="20" />
-              <span>We are a perfect match.</span>
-            </button>
           </div>
         </div>
 
